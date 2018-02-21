@@ -3,6 +3,7 @@ package com.example.demo.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,7 +16,7 @@ public class AppUser {
 
 
     @NotEmpty
-    @Column(unique = true)
+    //@Column(unique = true)
     private String username;
 
     @NotEmpty
@@ -25,12 +26,19 @@ public class AppUser {
 
     private String fullName;
 
-    @ManyToMany
-    private List<ShoppingCart> shoppingCartList;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<ShoppingCart> userCartList;
 
+    public List<ShoppingCart> getUserCartList() {
+        return userCartList;
+    }
 
-    public void addShoppingCart( ShoppingCart s){
-        this.shoppingCartList.add(s);
+    public void setUserCartList(List<ShoppingCart> userCartList) {
+        this.userCartList = userCartList;
+    }
+
+    public void addShoppingCart(ShoppingCart s){
+        this.userCartList.add(s);
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -38,6 +46,7 @@ public class AppUser {
 
     public AppUser() {
         this.roles = new HashSet<>();
+        this.userCartList=new ArrayList<>();
     }
 
     public void addRole(AppRole role){

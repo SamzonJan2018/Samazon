@@ -10,4 +10,5 @@ public interface AppUserRepository  extends CrudRepository<AppUser,Long>{
 
     AppUser findAppUserByUsername(String username);
     HashSet<AppUser> findByRoles(AppRole r);
+
 }
