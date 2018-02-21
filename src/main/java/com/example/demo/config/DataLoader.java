@@ -1,17 +1,15 @@
 package com.example.demo.config;
 
-<<<<<<< HEAD
+
+
 import com.example.demo.model.AppRole;
 import com.example.demo.model.AppUser;
 import com.example.demo.model.Product;
+import com.example.demo.model.ShoppingCart;
 import com.example.demo.repository.AppRoleRepository;
 import com.example.demo.repository.AppUserRepository;
 import com.example.demo.repository.ProductRepository;
-=======
-
-import com.example.demo.model.*;
-import com.example.demo.repository.*;
->>>>>>> d33e2d6b87e208a19929005b1eea0b951b0567d6
+import com.example.demo.repository.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
