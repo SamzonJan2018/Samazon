@@ -1,10 +1,8 @@
 package com.example.demo.config;
 
-import com.example.demo.model.AppRole;
-import com.example.demo.model.Product;
-import com.example.demo.repository.AppRoleRepository;
-import com.example.demo.repository.AppUserRepository;
-import com.example.demo.repository.ProductRepository;
+
+import com.example.demo.model.*;
+import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -21,6 +19,9 @@ public class DataLoader  implements CommandLineRunner{
     @Autowired
     ProductRepository productRepo;
 
+    @Autowired
+    ShoppingCartRepository shoppingCartRepository;
+
     @Override
     public void run(String... strings) throws Exception {
 
@@ -31,6 +32,32 @@ public class DataLoader  implements CommandLineRunner{
         role = new AppRole();
         role.setRoleName("ADMIN");
         appRoleRepository.save(role);
+
+        // A few users
+        // User 1
+        AppUser user = new AppUser();
+        user.setUsername("John");
+        user.setPassword("password1");
+        user.setFullName("John Doe");
+        user.setUserEmail("g1@gmail.com");
+        user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
+        appUserRepository.save(user);
+        // User 2
+        user = new AppUser();
+        user.setUsername("Jacob");
+        user.setPassword("password2");
+        user.setFullName("Jacob Smith");
+        user.setUserEmail("g2@gmail.com");
+        user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
+        appUserRepository.save(user);
+        // User 3
+        user = new AppUser();
+        user.setUsername("Joe");
+        user.setPassword("password3");
+        user.setFullName("Joe Blow");
+        user.setUserEmail("g3@gmail.com");
+        user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
+        appUserRepository.save(user);
 
         //Load 15 initial prodcuts here
 
@@ -138,6 +165,32 @@ public class DataLoader  implements CommandLineRunner{
         newProduct.setProductPrice(20.99);
         newProduct.setProductPicture("http://www.therookies.co/wp-content/uploads/2017/04/101532-book-cover-for-bram-stokers-dracula-69-1493451161.jpg");
         productRepo.save(newProduct);
+
+        //Shopping Cart
+        ShoppingCart shoppingCart=new ShoppingCart();
+        shoppingCart.addProduct(productRepo.findById(new Long(3)));
+        shoppingCart.addProduct(productRepo.findById(new Long(5)));
+        shoppingCart.addProduct(productRepo.findById(new Long(9)));
+        shoppingCart.addProduct(productRepo.findById(new Long(13)));
+        shoppingCart.addProduct(productRepo.findById(new Long(1)));
+        shoppingCartRepository.save(shoppingCart);
+        shoppingCart=new ShoppingCart();
+        shoppingCart.addProduct(productRepo.findById(new Long(1)));
+        shoppingCart.addProduct(productRepo.findById(new Long(4)));
+        shoppingCart.addProduct(productRepo.findById(new Long(10)));
+        shoppingCart.addProduct(productRepo.findById(new Long(6)));
+        shoppingCart.addProduct(productRepo.findById(new Long(15)));
+        shoppingCartRepository.save(shoppingCart);
+        shoppingCart=new ShoppingCart();
+        shoppingCart.addProduct(productRepo.findById(new Long(7)));
+        shoppingCart.addProduct(productRepo.findById(new Long(12)));
+        shoppingCart.addProduct(productRepo.findById(new Long(9)));
+        shoppingCart.addProduct(productRepo.findById(new Long(2)));
+        shoppingCart.addProduct(productRepo.findById(new Long(8)));
+        shoppingCartRepository.save(shoppingCart);
+
+        // Adding shopping carts to Users
+
 
 
 

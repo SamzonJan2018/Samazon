@@ -24,7 +24,9 @@ public class ShoppingCart {
         this.productList.add(p);
     }
 
-   private ShoppingCart(){
+
+
+    public ShoppingCart(){
        productList = new ArrayList<>();
    }
 
