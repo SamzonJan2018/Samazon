@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Product</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+
+</head>
+<body>
+
+<div th:replace="base::navlinks"></div>
+
+<form action="#"
+      th:action="@{/addproduct}"
+      th:object="${product}"
+      method="post">
+    <div class="col-3">
+        <input type="hidden" th:field="*{id}" />
+    </div>
+    <div class="col-3">
+        <label id="labelProductInfo">Add product</label>
+    </div>
+    <div class="col-3">
+        <label id="labelReferenceProductName">Product name</label>
+        <input type="text" class="form-control" id="textReferenceProductName" th:field="*{productName}" placeholder="Enter product name"/>
+        <span th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></span>
+    </div>
+    <div class="col-3">
+        <label id="labelReferenceProductPicture">Product picture</label>
+        <input type="text" class="form-control" id="textReferenceProductPicture" th:field="*{productName}" placeholder="Enter product picture"/>
+        <span th:if="${#fields.hasErrors('productPicture')}" th:errors="*{productPicture}"></span>
+    </div>
+    <div class="col-3">
+        <label id="labelReferencePrice">Product price</label>
+        <input type="text" class="form-control" id="textPrice" th:field="*{productPrice}" placeholder="Enter product price"/>
+        <span th:if="${#fields.hasErrors('productPrice')}" th:errors="*{productPrice}"></span>
+    </div>
+    <div class="col-6">
+        <label id="labelDescription">Add product description</label><br/>
+        <textarea class="col-10" id="textDescription" th:field="*{productDescription}" rows="3" placeholder="Enter description"></textarea>
+        <span th:if="${#fields.hasErrors('productDescription')}" th:errors="*{productDescription}"></span>
+    </div>
+
+
+    <br/>
+
+    <div class="col-3">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+</form>
+<!--<div th:replace="base::footer"></div>-->
+
+</body>
+</html>
