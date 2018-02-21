@@ -13,7 +13,7 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToMany(mappedBy = "shoppingCartList")
+    @ManyToMany(mappedBy = "userCartList")
     private List <AppUser> appUser;
 
     @ManyToMany
@@ -24,7 +24,9 @@ public class ShoppingCart {
         this.productList.add(p);
     }
 
-   private ShoppingCart(){
+
+
+    public ShoppingCart(){
        productList = new ArrayList<>();
    }
 
