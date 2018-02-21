@@ -14,7 +14,7 @@ public class ShoppingCart {
     private long id;
 
     @ManyToMany(mappedBy = "shoppingCartList")
-    private AppUser appUser;
+    private List <AppUser> appUser;
 
     @ManyToMany
     private List<Product> productList;
@@ -36,11 +36,11 @@ public class ShoppingCart {
         this.id = id;
     }
 
-    public AppUser getAppUser() {
+    public List<AppUser> getAppUser() {
         return appUser;
     }
 
-    public void setAppUser(AppUser appUser) {
+    public void setAppUser(List<AppUser> appUser) {
         this.appUser = appUser;
     }
 

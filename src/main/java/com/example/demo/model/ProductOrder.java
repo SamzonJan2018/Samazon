@@ -6,11 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Timestamp;
 
-@Entity
+/*@Entity*/
 public class ProductOrder {
 
 
-    @Id
+   /* @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
@@ -19,6 +19,6 @@ public class ProductOrder {
 
 
     private Product product;
-
+*/
 
 }
