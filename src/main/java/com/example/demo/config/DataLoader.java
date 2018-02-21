@@ -67,7 +67,7 @@ public class DataLoader  implements CommandLineRunner{
         user.setUserEmail("g3@gmail.com");
         user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
         appUserRepository.save(user);
->>>>>>> d33e2d6b87e208a19929005b1eea0b951b0567d6
+
 
         //Load 15 initial prodcuts here
 
