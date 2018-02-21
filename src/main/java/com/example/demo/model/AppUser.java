@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,6 +24,14 @@ public class AppUser {
     private String userEmail;
 
     private String fullName;
+
+    @ManyToMany
+    private List<ShoppingCart> shoppingCartList;
+
+
+    public void addShoppingCart( ShoppingCart s){
+        this.shoppingCartList.add(s);
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<AppRole> roles;
