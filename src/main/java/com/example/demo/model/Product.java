@@ -1,9 +1,10 @@
 package com.example.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.ManyToAny;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -22,6 +23,21 @@ public class Product {
     private String productDescription;
    // private int productQuantity;
 
+    @ManyToMany(mappedBy = "productList")
+    private List<ShoppingCart> shoppingCartList;
+
+
+    public Product(){
+        shoppingCartList = new ArrayList<>();
+    }
+
+    public List<ShoppingCart> getShoppingCartList() {
+        return shoppingCartList;
+    }
+
+    public void setShoppingCartList(List<ShoppingCart> shoppingCartList) {
+        this.shoppingCartList = shoppingCartList;
+    }
 
     public long getId() {
         return id;
