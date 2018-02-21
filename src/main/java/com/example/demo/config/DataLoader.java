@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 import com.example.demo.model.AppRole;
+import com.example.demo.model.AppUser;
 import com.example.demo.model.Product;
 import com.example.demo.repository.AppRoleRepository;
 import com.example.demo.repository.AppUserRepository;
@@ -31,6 +32,11 @@ public class DataLoader  implements CommandLineRunner{
         role = new AppRole();
         role.setRoleName("ADMIN");
         appRoleRepository.save(role);
+
+        AppUser appUser = new AppUser();
+        appUser.setUsername("user");
+        appUser.setPassword("password");
+        appUserRepository.save(appUser);
 
         //Load 15 initial prodcuts here
 
