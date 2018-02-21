@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
-import com.example.demo.*;
+import com.example.demo.repository.*;
+import com.example.demo.model.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -29,7 +30,7 @@ public class SSUDS implements UserDetailsService {
             throw new UsernameNotFoundException("Invalid username or password");
 
 
-        return new User(thisUser.getLogintousername(),thisUser.getSecretsecretpassword(),grantedAuthorities(thisUser));
+        return new User(thisUser.getUsername(),thisUser.getPassword(),grantedAuthorities(thisUser));
     }
 
     public Set <GrantedAuthority> grantedAuthorities(AppUser user)
