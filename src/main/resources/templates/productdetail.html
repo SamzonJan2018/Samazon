@@ -2,42 +2,32 @@
 <html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Product</title>
+    <title>Index</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
 
 </head>
 <body>
-
 <div th:replace="base::navlinks"></div>
 
 <div class="container">
-    <table class="table" title="Books Table" >
-        <thead>
-        <tr>
-            <th>Product Name</th>
-            <th>Product Picture</th>
-            <th>Product Price</th>
-            <th>Product Detail</th>
+    <h2>Product detail</h2>
+    <div class="card">
+        <div class="card-body">
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${product}">
+            <div th:each="product : ${product}">
+                <Span th:text="${product.productName}"></Span>
+                <img class="img-rounded" th:src="${product.productPicture}" alt="Product image" style="width:10%"/><br/>
+                <Span th:text="${product.productPrice}"></Span>
+                <Span th:text="${product.productDescription}"></Span><br/>
+                <a th:href="@{/addshoppingcart/{id}(id=${product.id})}">Add to cart</a>
+            </div><br/>
 
-            <td th:text="${product.productName}"></td>
 
-            <td><img class="img-rounded" th:src="${product.productPicture}"/></td>
-
-            <td th:text="${product.productPrice}"></td>
-
-            <!--<td th:text="${product.productDescription}"></td>-->
-
-            <td><a th:href="@{/detail/{id} (id=${product.id})}">Detail</a></td>
-
-        </tr>
-        </tbody>
-    </table>
+        </div>
+    </div>
 </div>
+
+
 <!--<div th:replace="base::footer"></div>-->
 <script
         src="http://code.jquery.com/jquery-3.3.1.min.js"
