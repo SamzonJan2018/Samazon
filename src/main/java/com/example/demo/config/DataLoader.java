@@ -174,6 +174,7 @@ public class DataLoader  implements CommandLineRunner{
         shoppingCart.addProduct(productRepo.findById(new Long(13)));
         shoppingCart.addProduct(productRepo.findById(new Long(1)));
         shoppingCartRepository.save(shoppingCart);
+
         shoppingCart=new ShoppingCart();
         shoppingCart.addProduct(productRepo.findById(new Long(1)));
         shoppingCart.addProduct(productRepo.findById(new Long(4)));
@@ -190,7 +191,13 @@ public class DataLoader  implements CommandLineRunner{
         shoppingCartRepository.save(shoppingCart);
 
         // Adding shopping carts to Users
-
+        AppUser appUser=appUserRepository.findOne(new Long(1));
+        appUser.addShoppingCart(shoppingCartRepository.findById(new Long(2)));
+        appUserRepository.save(appUser);
+        appUser=appUserRepository.findOne(new Long(3));
+        appUser.addShoppingCart(shoppingCartRepository.findById(new Long(1)));
+        appUser.addShoppingCart(shoppingCartRepository.findById(new Long(3)));
+        appUserRepository.save(appUser);
 
 
 

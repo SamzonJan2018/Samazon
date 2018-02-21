@@ -13,7 +13,7 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToMany(mappedBy = "shoppingCartList")
+    @ManyToMany(mappedBy = "userCartList")
     private List <AppUser> appUser;
 
     @ManyToMany
