@@ -41,13 +41,14 @@
 
             <li class="nav-item">
                 <!--<a class="nav-link" href="/search">Search</a>-->
-
+                <div class="col-sm-3 col-md-3 pull-right">
                 <form th:action="@{/search}" method="post">
-                    <input type="text" name="search">
 
                     <input type="submit" value="Search">
 
+                    <input type="text" name="search">
                 </form>
+                </div>
             </li>
 
         </ul>

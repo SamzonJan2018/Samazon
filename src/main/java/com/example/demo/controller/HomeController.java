@@ -75,14 +75,20 @@ public class HomeController {
             return "redirect:/";
         }
     }
+    @RequestMapping("/detail/{id}")
+    public String productDetail(@PathVariable("id") long id,Model model,RedirectAttributes redirectAttributes ){
+        model.addAttribute("product", productRepository.findOne(id));
+        return "productdetail";
+    }
 
     @RequestMapping("/addshoppingcart/{id}")
     public String addToShoppingCart(@PathVariable("id") long id,Model model,RedirectAttributes redirectAttributes ){
         Product product=productRepository.findOne(id);
         model.addAttribute("product", productRepository.findOne(id));
         productRepository.save(product);
-        return "redirect:/shoppingcart";
+        return "shoppingcart";
     }
+
     //For user registration
     @RequestMapping(value="/appuserform",method= RequestMethod.GET)
     public String showRegistrationPage(Model model){
