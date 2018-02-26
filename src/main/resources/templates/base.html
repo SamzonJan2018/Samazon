@@ -23,34 +23,40 @@
             <li class="nav-item ">
                 <a class="nav-link" href="/productlist">Product List</a>
             </li>
-            <li class="nav-item">
+            <li sec:authorize="isAuthenticated()">
+                <span sec:authentication="name"></span>
+                Total value of cart $
+                <span th:object="${runningTotal}" th:text="${runningTotal}"></span>
+
+
+            </li>
+            <li sec:authorize="isAuthenticated()" class="nav-item">
                 <a class="nav-link" href="/shoppingcart">Shopping Cart</a>
             </li>
             <li class="nav-item dropdown">
 
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span sec:authentication="name"></span>
+                    <span sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+                    <span sec:authorize="isAnonymous()">Login here</span>
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/login">Login</a>
-                    <a class="dropdown-item" href="/appuserform">Register</a>
-                    <a class="dropdown-item" href="/logout">Logout</a>
+                    <a sec:authorize="isAnonymous()" class="dropdown-item" href="/login">Login</a>
+                    <a sec:authorize="isAnonymous()" class="dropdown-item" href="/appuserform">Register</a>
+                    <a sec:authorize="isAuthenticated()" class="dropdown-item" href="/logout">Logout</a>
                 </div>
             </li>
-
+            <div class="pull-right">
             <li class="nav-item">
                 <!--<a class="nav-link" href="/search">Search</a>-->
-                <div class="col-sm-3 col-md-3 pull-right">
                 <form th:action="@{/search}" method="post">
 
                     <input type="submit" value="Search">
 
                     <input type="text" name="search">
                 </form>
-                </div>
             </li>
-
+            </div>
         </ul>
     </nav>
 

@@ -35,14 +35,18 @@ public class HomeController {
     @Autowired
     ShoppingCartRepository shoppingCartRepository;
 
+    public Double runningTotal = 0.0;
+
 
     @GetMapping("/login")
-    public String login(){
+    public String login(Model model){
+        model.addAttribute("runningTotal", runningTotal);
         return "login";
     }
 
     @RequestMapping("/")
     public String showIndex(Model model){
+        model.addAttribute("runningTotal", runningTotal);
 
         return "index";
     }
@@ -50,11 +54,14 @@ public class HomeController {
     @RequestMapping("/productlist")
     public String productList(Model model){
         model.addAttribute("product",productRepository.findAll());
+        model.addAttribute("runningTotal", runningTotal);
         return "productlist";
     }
 
     @RequestMapping("/appuserform")
     public String userRegistration(Model model){
+
+        model.addAttribute("runningTotal", runningTotal);
         return "appuserform";
     }
 
@@ -62,22 +69,26 @@ public class HomeController {
     @GetMapping("/productform")
     public String addProduct(Model model){
         model.addAttribute("product",new Product());
+        model.addAttribute("runningTotal", runningTotal);
         return "productform";
     }
     @PostMapping("/productform")
     public String addProductForm(@Valid @ModelAttribute("product") Product product, BindingResult result,
-                                    RedirectAttributes redirectAttributes){
+                                    RedirectAttributes redirectAttributes, Model model){
         if(result.hasErrors()){
+            model.addAttribute("runningTotal", runningTotal);
             return "productform";
         }
         else{
             productRepository.save(product);
+            model.addAttribute("runningTotal", runningTotal);
             return "redirect:/";
         }
     }
     @RequestMapping("/detail/{id}")
     public String productDetail(@PathVariable("id") long id,Model model,RedirectAttributes redirectAttributes ){
         model.addAttribute("product", productRepository.findOne(id));
+        model.addAttribute("runningTotal", runningTotal);
         return "productdetail";
     }
 
@@ -86,6 +97,7 @@ public class HomeController {
         Product product=productRepository.findOne(id);
         model.addAttribute("product", productRepository.findOne(id));
         productRepository.save(product);
+        model.addAttribute("runningTotal", runningTotal);
         return "shoppingcart";
     }
 
@@ -93,6 +105,7 @@ public class HomeController {
     @RequestMapping(value="/appuserform",method= RequestMethod.GET)
     public String showRegistrationPage(Model model){
         model.addAttribute("appuser",new AppUser());
+        model.addAttribute("runningTotal", runningTotal);
         return "appuserform";
     }
 
@@ -106,10 +119,12 @@ public class HomeController {
             appUserRepository.save(appuser);
             model.addAttribute("message","User Account Successfully Created");
             ShoppingCart shoppingCart = new ShoppingCart();
+            shoppingCart.setShoppingCartTotal(0);
             shoppingCartRepository.save(shoppingCart);
             appuser.addShoppingCart(shoppingCart);
             appUserRepository.save(appuser);
         }
+        model.addAttribute("runningTotal", runningTotal);
         return "redirect:/";
     }
 
@@ -120,6 +135,7 @@ public class HomeController {
 
       Iterable<Product> products = productRepository.findAllByProductName(searchString);
       model.addAttribute("product",products);
+        model.addAttribute("runningTotal", runningTotal);
 
 
         return "productlist";
@@ -131,6 +147,7 @@ public class HomeController {
         Product product = productRepository.findOne(id);
 
         model.addAttribute("product",product);
+        model.addAttribute("runningTotal", runningTotal);
 
         return "productdetail";
 
@@ -138,12 +155,19 @@ public class HomeController {
 
     @GetMapping("/addshoppingcart/{id}")
     public String addShoppingCart(@PathVariable("id") Long id, Model model, Authentication authentication){
+
      AppUser appUser = appUserRepository.findAppUserByUsername(authentication.getName());
      ShoppingCart shoppingCart = shoppingCartRepository.findByAppUserContaining(appUser);
-
-
         Product product = productRepository.findOne(id);
+
+        shoppingCart.setShoppingCartTotal(0);
+        runningTotal = 0.0;
         shoppingCart.addProduct(product);
+        for (Product product2: shoppingCart.getProductList()){
+            shoppingCart.setShoppingCartTotal(shoppingCart.getShoppingCartTotal()+product2.getProductPrice());
+            runningTotal=shoppingCart.getShoppingCartTotal();
+        }
+        model.addAttribute("runningTotal", runningTotal);
         shoppingCartRepository.save(shoppingCart);
 
 
@@ -158,6 +182,7 @@ public class HomeController {
         AppUser appUser = appUserRepository.findAppUserByUsername(authentication.getName());
         ShoppingCart shoppingCart = shoppingCartRepository.findByAppUserContaining(appUser);
         model.addAttribute("shopping", shoppingCart);
+    model.addAttribute("runningTotal", runningTotal);
         return "shoppingcart";
 
     }
