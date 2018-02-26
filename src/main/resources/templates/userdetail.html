@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.tymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8" />
+    <title>User Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+
+</head>
+<body>
+<div th:replace="base::navlinks"></div>
+
+
+
+<div class="container">
+    <h2>User Details</h2>
+    <div class="card">
+        <div class="card-body">
+
+            <div th:each="user : ${appuser}">
+                <Span th:text="${user.fullName}"></Span>
+                <Span th:text="${user.userEmail}"></Span>
+            </div><br/>
+</div>
+
+    <h3>Order history</h3>
+    <div class="container">
+        <table class="table" title="User Details" >
+            <thead>
+            <tr>
+                <th>Order Date</th>
+                <th>Order Number</th>
+                <th>Order Amount</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${productorder}">
+
+                <td th:text="${order.orderDate}"></td>
+                <td th:text="${order.orderNum}"></td>
+                <td th:text="${order.amount}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!--<div th:replace="base::footer"></div>-->
+<script
+        src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
