@@ -20,6 +20,17 @@ public class ShoppingCart {
     private List<Product> productList;
 
 
+    public double getShoppingCartTotal() {
+        return shoppingCartTotal;
+    }
+
+    public void setShoppingCartTotal(double shoppingCartTotal) {
+        this.shoppingCartTotal = shoppingCartTotal;
+    }
+
+    private double shoppingCartTotal;
+
+
     public void addProduct(Product p){
         this.productList.add(p);
     }
