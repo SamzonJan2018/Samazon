@@ -2,10 +2,7 @@ package com.example.demo.config;
 
 
 
-import com.example.demo.model.AppRole;
-import com.example.demo.model.AppUser;
-import com.example.demo.model.Product;
-import com.example.demo.model.ShoppingCart;
+import com.example.demo.model.*;
 import com.example.demo.repository.AppRoleRepository;
 import com.example.demo.repository.AppUserRepository;
 import com.example.demo.repository.ProductRepository;
@@ -63,6 +60,14 @@ public class DataLoader  implements CommandLineRunner{
         user.setPassword("password3");
         user.setFullName("Joe Blow");
         user.setUserEmail("g3@gmail.com");
+        user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
+        appUserRepository.save(user);
+        // User 4
+        user = new AppUser();
+        user.setUsername("Jane");
+        user.setPassword("password4");
+        user.setFullName("Jane Pane");
+        user.setUserEmail("g4@gmail.com");
         user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
         appUserRepository.save(user);
 
@@ -175,6 +180,7 @@ public class DataLoader  implements CommandLineRunner{
         productRepo.save(newProduct);
 
         //Shopping Cart
+        //Cart 1
         ShoppingCart shoppingCart=new ShoppingCart();
         shoppingCart.addProduct(productRepo.findById(new Long(3)));
         shoppingCart.addProduct(productRepo.findById(new Long(5)));
@@ -182,7 +188,7 @@ public class DataLoader  implements CommandLineRunner{
         shoppingCart.addProduct(productRepo.findById(new Long(13)));
         shoppingCart.addProduct(productRepo.findById(new Long(1)));
         shoppingCartRepository.save(shoppingCart);
-
+        // Cart 2
         shoppingCart=new ShoppingCart();
         shoppingCart.addProduct(productRepo.findById(new Long(1)));
         shoppingCart.addProduct(productRepo.findById(new Long(4)));
@@ -190,6 +196,7 @@ public class DataLoader  implements CommandLineRunner{
         shoppingCart.addProduct(productRepo.findById(new Long(6)));
         shoppingCart.addProduct(productRepo.findById(new Long(15)));
         shoppingCartRepository.save(shoppingCart);
+        // Cart 3
         shoppingCart=new ShoppingCart();
         shoppingCart.addProduct(productRepo.findById(new Long(7)));
         shoppingCart.addProduct(productRepo.findById(new Long(12)));
@@ -197,15 +204,34 @@ public class DataLoader  implements CommandLineRunner{
         shoppingCart.addProduct(productRepo.findById(new Long(2)));
         shoppingCart.addProduct(productRepo.findById(new Long(8)));
         shoppingCartRepository.save(shoppingCart);
+        // Cart 4
+        shoppingCart=new ShoppingCart();
+        shoppingCart.addProduct(productRepo.findById(new Long(11)));
+        shoppingCart.addProduct(productRepo.findById(new Long(14)));
+        shoppingCart.addProduct(productRepo.findById(new Long(3)));
+        shoppingCart.addProduct(productRepo.findById(new Long(6)));
+        shoppingCart.addProduct(productRepo.findById(new Long(2)));
+        shoppingCartRepository.save(shoppingCart);
 
         // Adding shopping carts to Users
+        // shopping cart test 3
         AppUser appUser=appUserRepository.findOne(new Long(1));
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(2)));
         appUserRepository.save(appUser);
+        // Shopping cart test two
         appUser=appUserRepository.findOne(new Long(3));
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(1)));
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(3)));
         appUserRepository.save(appUser);
+
+        // Testing Orderlist
+        ProductOrder productOrder=new ProductOrder();
+        productOrder.addCart(shoppingCartRepository.findOne(new Long(4)));
+        productOrder.addCart(shoppingCartRepository.findOne(new Long(2)));
+
+        appUser.addOrderHistory(productOrder);
+
+
 
 
 

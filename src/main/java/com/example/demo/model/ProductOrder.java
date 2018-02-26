@@ -26,8 +26,9 @@ public class ProductOrder {
     @ManyToMany
     public List<ShoppingCart> cartList;
 
-    public ProductOrder(List<ShoppingCart> cartList) {
+    public ProductOrder(List<ShoppingCart> cartList, List<AppUser> userList) {
         this.cartList = cartList;
+        this.userList = userList;
     }
 
     public List<ShoppingCart> getCartList() {
@@ -36,6 +37,22 @@ public class ProductOrder {
 
     public void setCartList(List<ShoppingCart> cartList) {
         this.cartList = cartList;
+    }
+
+    public void addCart(ShoppingCart shoppingCart){this.cartList.add(shoppingCart);}
+
+    public ProductOrder() {
+    }
+
+    @ManyToMany(mappedBy = "userOrderList")
+    public List<AppUser> userList;
+
+    public List<AppUser> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<AppUser> userList) {
+        this.userList = userList;
     }
 
     public long getId() {

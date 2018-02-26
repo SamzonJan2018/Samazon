@@ -26,6 +26,19 @@ public class AppUser {
 
     private String fullName;
 
+    @ManyToMany
+    private List<ProductOrder> userOrderList;
+
+    public List<ProductOrder> getUserOrderList() {
+        return userOrderList;
+    }
+
+    public void setUserOrderList(List<ProductOrder> userOrderList) {
+        this.userOrderList = userOrderList;
+    }
+
+    public void addOrderHistory(ProductOrder productOrder){this.userOrderList.add(productOrder);}
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<ShoppingCart> userCartList;
 
@@ -47,6 +60,7 @@ public class AppUser {
     public AppUser() {
         this.roles = new HashSet<>();
         this.userCartList=new ArrayList<>();
+        this.userOrderList=new ArrayList<>();
     }
 
     public void addRole(AppRole role){
