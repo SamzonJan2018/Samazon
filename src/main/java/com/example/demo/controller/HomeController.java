@@ -108,4 +108,15 @@ public class HomeController {
 
         return "productlist";
     }
+
+    @GetMapping("/detail/{id}")
+    public String productDetail(@PathVariable("id") Long id, Model model){
+
+        Product product = productRepository.findOne(id);
+
+        model.addAttribute("product",product);
+
+        return "productdetail";
+
+    }
 }
