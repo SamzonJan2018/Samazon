@@ -153,5 +153,14 @@ public class HomeController {
 
     }
 
+@GetMapping("/shoppingcart")
+    public String showShoppingCart(Model model, Authentication authentication){
+        AppUser appUser = appUserRepository.findAppUserByUsername(authentication.getName());
+        ShoppingCart shoppingCart = shoppingCartRepository.findByAppUserContaining(appUser);
+        model.addAttribute("shopping", shoppingCart);
+        return "shoppingcart";
+
+    }
+
 
 }
