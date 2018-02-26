@@ -53,4 +53,17 @@ public class ShoppingCart {
     public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
+
+    @ManyToMany(mappedBy = "cartList")
+    private List<ProductOrder> orderList;
+
+    
+
+    public List<ProductOrder> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<ProductOrder> orderList) {
+        this.orderList = orderList;
+    }
 }

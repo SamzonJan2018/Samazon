@@ -23,11 +23,19 @@ public class ProductOrder {
 
     private String fullName;
 
-    @ManyToMany(mappedBy = "productOrders")
-    public List<Product> productList;
+    @ManyToMany
+    public List<ShoppingCart> cartList;
 
-    public ProductOrder(){
-        this.productList = new ArrayList<>();
+    public ProductOrder(List<ShoppingCart> cartList) {
+        this.cartList = cartList;
+    }
+
+    public List<ShoppingCart> getCartList() {
+        return cartList;
+    }
+
+    public void setCartList(List<ShoppingCart> cartList) {
+        this.cartList = cartList;
     }
 
     public long getId() {
@@ -77,4 +85,6 @@ public class ProductOrder {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+
+
 }
