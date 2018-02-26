@@ -2,9 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.model.AppUser;
 import com.example.demo.model.Product;
+import com.example.demo.model.ShoppingCart;
 import com.example.demo.repository.AppRoleRepository;
 import com.example.demo.repository.AppUserRepository;
 import com.example.demo.repository.ProductRepository;
+import com.example.demo.repository.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,9 @@ public class HomeController {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    ShoppingCartRepository shoppingCartRepository;
 
     @GetMapping("/login")
     public String login(){
@@ -69,14 +74,20 @@ public class HomeController {
             return "redirect:/";
         }
     }
+    @RequestMapping("/detail/{id}")
+    public String productDetail(@PathVariable("id") long id,Model model,RedirectAttributes redirectAttributes ){
+        model.addAttribute("product", productRepository.findOne(id));
+        return "productdetail";
+    }
 
     @RequestMapping("/addshoppingcart/{id}")
     public String addToShoppingCart(@PathVariable("id") long id,Model model,RedirectAttributes redirectAttributes ){
         Product product=productRepository.findOne(id);
         model.addAttribute("product", productRepository.findOne(id));
         productRepository.save(product);
-        return "redirect:/shoppingcart";
+        return "shoppingcart";
     }
+
     //For user registration
     @RequestMapping(value="/appuserform",method= RequestMethod.GET)
     public String showRegistrationPage(Model model){
