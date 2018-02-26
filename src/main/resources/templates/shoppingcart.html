@@ -18,10 +18,11 @@
             <th>Product Price</th>
 
 
+
         </tr>
         </thead>
-        <tbody>
-        <tr th:each="product : ${product}">
+        <tbody th:each="shoppingCart : ${shopping}">
+        <tr th:each="product : ${shoppingCart.getProductList()}">
 
             <td th:text="${product.productName}"></td>
 
@@ -31,13 +32,17 @@
 
             <!--<td th:text="${product.productDescription}"></td>-->
 
-            <td><a th:href="@{/delete/{id} (id=${product.id})}">Delete</a></td>
+            <!--<td><a th:href="@{/delete/{id} (id=${product.id})}">Delete</a></td>-->
 
         </tr>
         </tbody>
     </table>
-
+<div>
+    <a th:href="@{/orderconfirmation}">Order</a>
 </div>
+</div>
+
+
 
 <!--<div th:replace="base::footer"></div>-->
 

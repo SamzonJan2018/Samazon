@@ -6,10 +6,7 @@ import com.example.demo.model.AppRole;
 import com.example.demo.model.AppUser;
 import com.example.demo.model.Product;
 import com.example.demo.model.ShoppingCart;
-import com.example.demo.repository.AppRoleRepository;
-import com.example.demo.repository.AppUserRepository;
-import com.example.demo.repository.ProductRepository;
-import com.example.demo.repository.ShoppingCartRepository;
+import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -28,6 +25,9 @@ public class DataLoader  implements CommandLineRunner{
 
     @Autowired
     ShoppingCartRepository shoppingCartRepository;
+
+    @Autowired
+    ProductOrderRepository productOrderRepository;
 
     @Override
     public void run(String... strings) throws Exception {
@@ -201,10 +201,12 @@ public class DataLoader  implements CommandLineRunner{
         // Adding shopping carts to Users
         AppUser appUser=appUserRepository.findOne(new Long(1));
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(2)));
+        appUser.addProductOrder(productOrderRepository.findOne(new Long(1)));
         appUserRepository.save(appUser);
         appUser=appUserRepository.findOne(new Long(3));
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(1)));
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(3)));
+        appUser.addProductOrder(productOrderRepository.findOne(new Long(2)));
         appUserRepository.save(appUser);
 
 

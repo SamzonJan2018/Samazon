@@ -26,6 +26,9 @@ public class ProductOrder {
     @ManyToMany
     public List<ShoppingCart> cartList;
 
+    @ManyToMany
+    public List<AppUser> appUsers;
+
     public ProductOrder(List<ShoppingCart> cartList) {
         this.cartList = cartList;
     }
