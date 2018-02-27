@@ -16,30 +16,31 @@ public class ShoppingCart {
     @ManyToMany(mappedBy = "userCartList")
     private List <AppUser> appUser;
 
-    @ManyToMany()
+    @ManyToMany
     private List<Product> productList;
 
+    @ManyToMany(mappedBy = "cartList")
+    private List<ProductOrder> orderList;
 
-    public double getShoppingCartTotal() {
-        return shoppingCartTotal;
+    public ShoppingCart(){
+        this.appUser = new ArrayList<>();
+        this.productList = new ArrayList<>();
+        this.orderList = new ArrayList<>();
     }
 
-    public void setShoppingCartTotal(double shoppingCartTotal) {
-        this.shoppingCartTotal = shoppingCartTotal;
-    }
+    /*public ShoppingCart(List<AppUser> appUser, List<Product> productList, List<ProductOrder> orderList) {
+        this.appUser = appUser;
+        this.productList = productList;
+        this.orderList = orderList;
+    }*/
 
     private double shoppingCartTotal;
-
 
     public void addProduct(Product p){
         this.productList.add(p);
     }
 
 
-
-    public ShoppingCart(){
-       productList = new ArrayList<>();
-   }
 
     public long getId() {
         return id;
@@ -65,16 +66,6 @@ public class ShoppingCart {
         this.productList = productList;
     }
 
-    @ManyToMany(mappedBy = "cartList")
-    private List<ProductOrder> orderList;
-
-
-    public ShoppingCart(List<AppUser> appUser, List<Product> productList, List<ProductOrder> orderList) {
-        this.appUser = appUser;
-        this.productList = productList;
-        this.orderList = orderList;
-    }
-
     public List<ProductOrder> getOrderList() {
         return orderList;
     }
@@ -82,4 +73,13 @@ public class ShoppingCart {
     public void setOrderList(List<ProductOrder> orderList) {
         this.orderList = orderList;
     }
+
+    public double getShoppingCartTotal() {
+        return shoppingCartTotal;
+    }
+
+    public void setShoppingCartTotal(double shoppingCartTotal) {
+        this.shoppingCartTotal = shoppingCartTotal;
+    }
+
 }

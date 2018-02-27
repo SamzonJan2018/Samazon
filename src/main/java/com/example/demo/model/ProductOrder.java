@@ -23,7 +23,7 @@ public class ProductOrder {
 
     private String fullName;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(/*cascade = CascadeType.ALL*/)
     public List<ShoppingCart> cartList;
 
 
@@ -45,7 +45,6 @@ public class ProductOrder {
     public ProductOrder(List<ShoppingCart> cartList) {
 
         this.cartList = cartList;
-        this.userList = userList;
     }
 
     public void addShoppingCarts(ShoppingCart s){
@@ -62,19 +61,6 @@ public class ProductOrder {
 
     public void addCart(ShoppingCart shoppingCart){this.cartList.add(shoppingCart);}
 
-    public ProductOrder() {
-    }
-
-    @ManyToMany(mappedBy = "userOrderList")
-    public List<AppUser> userList;
-
-    public List<AppUser> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<AppUser> userList) {
-        this.userList = userList;
-    }
 
     public long getId() {
         return id;

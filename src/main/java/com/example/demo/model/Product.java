@@ -23,7 +23,7 @@ public class Product {
     private String productDescription;
    // private int productQuantity;
 
-  @ManyToMany(cascade = CascadeType.ALL)
+  @ManyToMany(/*cascade = CascadeType.ALL*/)
     private List<ProductOrder> productOrders;
 
 
@@ -34,7 +34,7 @@ public class Product {
 
 
     public Product(){
-        shoppingCartList = new ArrayList<>();
+        this.shoppingCartList = new ArrayList<>();
         this.productOrders = new ArrayList<>();
     }
 

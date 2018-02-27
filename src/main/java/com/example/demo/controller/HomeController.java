@@ -95,7 +95,7 @@ public class HomeController {
     @RequestMapping("/addshoppingcart/{id}")
     public String addToShoppingCart(@PathVariable("id") long id,Model model,RedirectAttributes redirectAttributes ){
         Product product=productRepository.findOne(id);
-        counter++;
+
         model.addAttribute("product", productRepository.findOne(id));
         productRepository.save(product);
         model.addAttribute("runningTotal", runningTotal);
@@ -112,7 +112,7 @@ public class HomeController {
         ShoppingCart shoppingCart =shoppingCartRepository.findByAppUserContaining(appUser);
        List<Product> productList= shoppingCart.getProductList();
 
-        model.addAttribute("totalOrder",shoppingCartRepository.countByProductListIn(productList));
+        /*model.addAttribute("totalOrder",shoppingCartRepository.countByProductListIn(productList));*/
         return "orderconfirmation";
     }
 
