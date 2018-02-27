@@ -23,7 +23,7 @@ public class Product {
     private String productDescription;
    // private int productQuantity;
 
-  @ManyToMany
+  @ManyToMany(cascade = CascadeType.ALL)
     private List<ProductOrder> productOrders;
 
 
@@ -85,4 +85,6 @@ public class Product {
     public void setProductDescription(String productDescription) {
         this.productDescription = productDescription;
     }
+
+
 }

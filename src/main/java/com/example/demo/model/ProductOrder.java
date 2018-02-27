@@ -23,12 +23,33 @@ public class ProductOrder {
 
     private String fullName;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     public List<ShoppingCart> cartList;
 
-    public ProductOrder(List<ShoppingCart> cartList, List<AppUser> userList) {
+
+    @ManyToMany(mappedBy = "productOrderList")
+    public List<AppUser> appUsers;
+
+    public ProductOrder() {
+        cartList = new ArrayList<>();
+    }
+
+    public List<AppUser> getAppUsers() {
+        return appUsers;
+    }
+
+    public void setAppUsers(List<AppUser> appUsers) {
+        this.appUsers = appUsers;
+    }
+
+    public ProductOrder(List<ShoppingCart> cartList) {
+
         this.cartList = cartList;
         this.userList = userList;
+    }
+
+    public void addShoppingCarts(ShoppingCart s){
+        this.cartList.add(s);
     }
 
     public List<ShoppingCart> getCartList() {

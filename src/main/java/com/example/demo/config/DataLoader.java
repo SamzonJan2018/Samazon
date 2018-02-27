@@ -3,10 +3,8 @@ package com.example.demo.config;
 
 
 import com.example.demo.model.*;
-import com.example.demo.repository.AppRoleRepository;
-import com.example.demo.repository.AppUserRepository;
-import com.example.demo.repository.ProductRepository;
-import com.example.demo.repository.ShoppingCartRepository;
+
+import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -26,6 +24,9 @@ public class DataLoader  implements CommandLineRunner{
     @Autowired
     ShoppingCartRepository shoppingCartRepository;
 
+    @Autowired
+    ProductOrderRepository productOrderRepository;
+
     @Override
     public void run(String... strings) throws Exception {
 
@@ -44,6 +45,7 @@ public class DataLoader  implements CommandLineRunner{
         user.setPassword("password1");
         user.setFullName("John Doe");
         user.setUserEmail("g1@gmail.com");
+        appUserRepository.save(user);
         user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
         appUserRepository.save(user);
         // User 2
@@ -52,6 +54,7 @@ public class DataLoader  implements CommandLineRunner{
         user.setPassword("password2");
         user.setFullName("Jacob Smith");
         user.setUserEmail("g2@gmail.com");
+        appUserRepository.save(user);
         user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
         appUserRepository.save(user);
         // User 3
@@ -60,6 +63,7 @@ public class DataLoader  implements CommandLineRunner{
         user.setPassword("password3");
         user.setFullName("Joe Blow");
         user.setUserEmail("g3@gmail.com");
+        appUserRepository.save(user);
         user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
         appUserRepository.save(user);
         // User 4
@@ -217,6 +221,7 @@ public class DataLoader  implements CommandLineRunner{
         // shopping cart test 3
         AppUser appUser=appUserRepository.findOne(new Long(1));
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(2)));
+        //appUser.addProductOrder(productOrderRepository.findOne(new Long(1)));
         appUserRepository.save(appUser);
         // Shopping cart test two
         appUser=appUserRepository.findOne(new Long(3));
@@ -224,14 +229,13 @@ public class DataLoader  implements CommandLineRunner{
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(3)));
         appUserRepository.save(appUser);
 
-        // Testing Orderlist
-        ProductOrder productOrder=new ProductOrder();
-        productOrder.addCart(shoppingCartRepository.findOne(new Long(4)));
-        productOrder.addCart(shoppingCartRepository.findOne(new Long(2)));
-
-        appUser.addOrderHistory(productOrder);
-
-
+        ProductOrder productOrder = new ProductOrder();
+        productOrder.addShoppingCarts(shoppingCartRepository.findById(new Long(1)));
+        productOrder.addShoppingCarts(shoppingCartRepository.findById(new Long(3)));
+        productOrderRepository.save(productOrder);
+        appUser.addProductOrder(productOrderRepository.findById(new Long (1)));
+        //appUser.addProductOrder(productOrderRepository.findOne(new Long(2)));
+        appUserRepository.save(appUser);
 
 
 

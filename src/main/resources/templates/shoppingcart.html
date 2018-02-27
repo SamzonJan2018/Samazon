@@ -9,6 +9,43 @@
 </head>
 <body>
 <div th:replace="base::navlinks"></div>
+<div class="container">
+    <table class="table" title="Books Table" >
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Product Picture</th>
+            <th>Product Price</th>
+
+
+
+        </tr>
+        </thead>
+        <tbody th:each="shoppingCart : ${shopping}">
+        <tr th:each="product : ${shoppingCart.getProductList()}">
+
+            <td th:text="${product.productName}"></td>
+
+            <td><img class="img-rounded" th:src="${product.productPicture}" width="20%"/></td>
+
+            <td th:text="${product.productPrice}"></td>
+
+            <!--<td th:text="${product.productDescription}"></td>-->
+
+            <!--<td><a th:href="@{/delete/{id} (id=${product.id})}">Delete</a></td>-->
+
+        </tr>
+
+        <tr>
+            <td th:text="${shoppingCart.shoppingCartTotal}"></td>
+        </tr>
+        </tbody>
+    </table>
+<div>
+    <a th:href="@{/orderconfirmation}">Order</a>
+</div>
+</div>
+
 
 
 <!--<div th:replace="base::footer"></div>-->
