@@ -2,11 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.model.AppUser;
 import com.example.demo.model.Product;
+import com.example.demo.model.ProductOrder;
 import com.example.demo.model.ShoppingCart;
-import com.example.demo.repository.AppRoleRepository;
-import com.example.demo.repository.AppUserRepository;
-import com.example.demo.repository.ProductRepository;
-import com.example.demo.repository.ShoppingCartRepository;
+import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -20,6 +18,7 @@ import javax.validation.Valid;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -34,6 +33,7 @@ public class HomeController {
 
     @Autowired
     ShoppingCartRepository shoppingCartRepository;
+
 
     public Double runningTotal = 0.0;
 
@@ -95,10 +95,25 @@ public class HomeController {
     @RequestMapping("/addshoppingcart/{id}")
     public String addToShoppingCart(@PathVariable("id") long id,Model model,RedirectAttributes redirectAttributes ){
         Product product=productRepository.findOne(id);
+        counter++;
         model.addAttribute("product", productRepository.findOne(id));
         productRepository.save(product);
         model.addAttribute("runningTotal", runningTotal);
         return "shoppingcart";
+    }
+
+    @RequestMapping("/orderconfirmation")
+    public String orderConfirmation(Model model,Authentication authentication ){
+        //model.addAttribute("totalOrder", productOrderRepository.countByOrderNum());
+        //model.addAttribute("totalOrder",counter);
+
+       AppUser appUser= appUserRepository.findAppUserByUsername(authentication.getName());
+      //  Long countByProductListIn(List<Product> productList);
+        ShoppingCart shoppingCart =shoppingCartRepository.findByAppUserContaining(appUser);
+       List<Product> productList= shoppingCart.getProductList();
+
+        model.addAttribute("totalOrder",shoppingCartRepository.countByProductListIn(productList));
+        return "orderconfirmation";
     }
 
     //For user registration
@@ -109,6 +124,22 @@ public class HomeController {
         return "appuserform";
     }
 
+    @RequestMapping("/delete/{id}")
+    public String deleteShoppingCartItem(@PathVariable("id") long id){
+
+
+        //shoppingCartRepository.delete(id);
+        return "redirect:/";
+    }
+
+    //Order history
+    @RequestMapping(value="/orderhistory",method= RequestMethod.GET)
+    public String showOrderHistory(Authentication authentication,Model model){
+        AppUser appUser=appUserRepository.findAppUserByUsername(authentication.getName());
+        model.addAttribute("appuser",appUser);
+        /*model.addAttribute("productorder",appUserRepository.findByUsername(authentication.getName()));*/
+        return "appuserform";
+    }
 
     @RequestMapping(value="/appuserform",method= RequestMethod.POST)
     public String processRegistrationPage(@Valid @ModelAttribute("appuser") AppUser appuser, BindingResult result, Model model){
@@ -170,8 +201,6 @@ public class HomeController {
         model.addAttribute("runningTotal", runningTotal);
         shoppingCartRepository.save(shoppingCart);
 
-
-//need to modify this later
        return "redirect:/";
 
 
