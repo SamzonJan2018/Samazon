@@ -27,6 +27,9 @@ public class DataLoader  implements CommandLineRunner{
     @Autowired
     ProductOrderRepository productOrderRepository;
 
+    @Autowired
+    SiteShopperRepository siteShopperRepository;
+
     @Override
     public void run(String... strings) throws Exception {
 
@@ -49,7 +52,8 @@ public class DataLoader  implements CommandLineRunner{
         user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
         appUserRepository.save(user);
         SiteShopper siteShopper =new SiteShopper();
-        siteShopper
+        siteShopper.addAppUser(user);
+        siteShopperRepository.save(siteShopper);
         // User 2
         user = new AppUser();
         user.setAppUsername("Jacob");
@@ -59,6 +63,9 @@ public class DataLoader  implements CommandLineRunner{
         appUserRepository.save(user);
         user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
         appUserRepository.save(user);
+        siteShopper =new SiteShopper();
+        siteShopper.addAppUser(user);
+        siteShopperRepository.save(siteShopper);
         // User 3
         user = new AppUser();
         user.setAppUsername("Joe");
@@ -68,6 +75,9 @@ public class DataLoader  implements CommandLineRunner{
         appUserRepository.save(user);
         user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
         appUserRepository.save(user);
+        siteShopper =new SiteShopper();
+        siteShopper.addAppUser(user);
+        siteShopperRepository.save(siteShopper);
         // User 4
         user = new AppUser();
         user.setAppUsername("Jane");
@@ -77,6 +87,9 @@ public class DataLoader  implements CommandLineRunner{
         appUserRepository.save(user);
         user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
         appUserRepository.save(user);
+        siteShopper =new SiteShopper();
+        siteShopper.addAppUser(user);
+        siteShopperRepository.save(siteShopper);
 
 
         //Load 15 initial prodcuts here
