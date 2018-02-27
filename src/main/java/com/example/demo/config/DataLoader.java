@@ -2,10 +2,7 @@ package com.example.demo.config;
 
 
 
-import com.example.demo.model.AppRole;
-import com.example.demo.model.AppUser;
-import com.example.demo.model.Product;
-import com.example.demo.model.ShoppingCart;
+import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -206,9 +203,15 @@ public class DataLoader  implements CommandLineRunner{
         appUser=appUserRepository.findOne(new Long(3));
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(1)));
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(3)));
+        appUserRepository.save(appUser);
+        /*ProductOrder productOrder = new ProductOrder();
+        productOrder.addShoppingCarts(shoppingCartRepository.findById(new Long(1)));
+        productOrder.addShoppingCarts(shoppingCartRepository.findById(new Long(3)));
+        productOrderRepository.save(productOrder);
+        appUser.addProductOrder(productOrderRepository.findById(new Long (1)));
         //appUser.addProductOrder(productOrderRepository.findOne(new Long(2)));
         appUserRepository.save(appUser);
-
+*/
 
 
 

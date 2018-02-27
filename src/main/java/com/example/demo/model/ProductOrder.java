@@ -26,11 +26,27 @@ public class ProductOrder {
     @ManyToMany
     public List<ShoppingCart> cartList;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "productOrderList")
     public List<AppUser> appUsers;
 
-    public ProductOrder(List<ShoppingCart> cartList) {
+    public ProductOrder() {
+    }
+
+    public List<AppUser> getAppUsers() {
+        return appUsers;
+    }
+
+    public void setAppUsers(List<AppUser> appUsers) {
+        this.appUsers = appUsers;
+    }
+
+    public ProductOrder(List<ShoppingCart> cartList, List<AppUser> appUsers) {
         this.cartList = cartList;
+        this.appUsers = appUsers;
+    }
+
+    public void addShoppingCarts(ShoppingCart s){
+        this.cartList.add(s);
     }
 
     public List<ShoppingCart> getCartList() {

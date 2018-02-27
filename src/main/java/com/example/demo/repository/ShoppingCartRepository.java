@@ -11,6 +11,6 @@ public interface ShoppingCartRepository extends CrudRepository<ShoppingCart,Long
     ShoppingCart findById(Long id);
     ShoppingCart findByAppUserContaining(AppUser username);
     Long countByProductListIn(List<Product> productList);
-    Product findByProductId(Long id);
+    /*Product findByProductId(Long id);*/
 
 }

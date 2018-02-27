@@ -17,9 +17,9 @@
     <div class="card">
         <div class="card-body">
 
-            <div th:each="user : ${appuser}">
-                <Span th:text="${user.fullName}"></Span>
-                <Span th:text="${user.userEmail}"></Span>
+            <div th:each="appUser : ${appuser}">
+                <Span th:text="${appUser.fullName}"></Span>
+                <Span th:text="${appUser.userEmail}"></Span>
             </div><br/>
 </div>
 
@@ -36,11 +36,27 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="order : ${productorder}">
+            <tr th:each="productOrder : ${appUser.getProductOrderList()}">
+                <td th:text="${productOrder.orderDate}"></td>
+                <td th:text="${productOrder.orderNum}"></td>
+                <td th:text="${productOrder.amount}"></td>
+                <div class="container">
+                    <table class="table" title="User Details" >
+                        <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="shoppingCart : ${productOrder.getCartList()}">
+                        <tr th:each="product : ${shoppingCart.getProductList()}">
 
-                <td th:text="${order.orderDate}"></td>
-                <td th:text="${order.orderNum}"></td>
-                <td th:text="${order.amount}"></td>
+                            <td th:text="${product.productName}"></td>
+                            <td th:text="${product.productPrice}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </tr>
             </tbody>
         </table>

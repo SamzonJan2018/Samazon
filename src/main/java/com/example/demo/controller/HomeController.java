@@ -125,7 +125,7 @@ public class HomeController {
     public String showOrderHistory(Authentication authentication,Model model){
         AppUser appUser=appUserRepository.findAppUserByUsername(authentication.getName());
         model.addAttribute("appuser",appUser);
-        model.addAttribute("productorder",appUserRepository.findByUsername(authentication.getName()));
+        /*model.addAttribute("productorder",appUserRepository.findByUsername(authentication.getName()));*/
         return "appuserform";
     }
 
