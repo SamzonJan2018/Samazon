@@ -16,19 +16,20 @@ public class ShoppingCart {
     @ManyToMany(mappedBy = "userCartList")
     private List <AppUser> appUser;
 
-    @ManyToMany()
+    @ManyToMany
     private List<Product> productList;
 
-
-    public double getShoppingCartTotal() {
-        return shoppingCartTotal;
-    }
-
-    public void setShoppingCartTotal(double shoppingCartTotal) {
-        this.shoppingCartTotal = shoppingCartTotal;
+    public ShoppingCart(){
+        this.appUser = new ArrayList<>();
+        this.productList = new ArrayList<>();
     }
 
     private double shoppingCartTotal;
+    private boolean withinShoppingCart;
+    //private String orderDate;
+
+   /* @GeneratedValue(strategy = GenerationType.AUTO)
+    private int orderNum;*/
 
 
     public void addProduct(Product p){
@@ -36,10 +37,6 @@ public class ShoppingCart {
     }
 
 
-
-    public ShoppingCart(){
-       productList = new ArrayList<>();
-   }
 
     public long getId() {
         return id;
@@ -65,21 +62,37 @@ public class ShoppingCart {
         this.productList = productList;
     }
 
-    @ManyToMany(mappedBy = "cartList")
-    private List<ProductOrder> orderList;
-
-
-    public ShoppingCart(List<AppUser> appUser, List<Product> productList, List<ProductOrder> orderList) {
-        this.appUser = appUser;
-        this.productList = productList;
-        this.orderList = orderList;
+    public double getShoppingCartTotal() {
+        return shoppingCartTotal;
     }
 
-    public List<ProductOrder> getOrderList() {
-        return orderList;
+    public void setShoppingCartTotal(double shoppingCartTotal) {
+        this.shoppingCartTotal = shoppingCartTotal;
     }
 
-    public void setOrderList(List<ProductOrder> orderList) {
-        this.orderList = orderList;
+    public boolean isWithinShoppingCart() {
+        return withinShoppingCart;
     }
+
+    public void setWithinShoppingCart(boolean withinShoppingCart) {
+        this.withinShoppingCart = withinShoppingCart;
+    }
+/*
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+*/
+
+/*    public int getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
+    }*/
 }

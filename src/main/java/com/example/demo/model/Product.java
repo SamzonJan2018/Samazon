@@ -23,19 +23,13 @@ public class Product {
     private String productDescription;
    // private int productQuantity;
 
-  @ManyToMany(cascade = CascadeType.ALL)
-    private List<ProductOrder> productOrders;
-
-
-
 
     @ManyToMany(mappedBy = "productList")
     private List<ShoppingCart> shoppingCartList;
 
 
     public Product(){
-        shoppingCartList = new ArrayList<>();
-        this.productOrders = new ArrayList<>();
+        this.shoppingCartList = new ArrayList<>();
     }
 
     public List<ShoppingCart> getShoppingCartList() {

@@ -24,8 +24,6 @@ public class DataLoader  implements CommandLineRunner{
     @Autowired
     ShoppingCartRepository shoppingCartRepository;
 
-    @Autowired
-    ProductOrderRepository productOrderRepository;
 
     @Override
     public void run(String... strings) throws Exception {
@@ -72,6 +70,7 @@ public class DataLoader  implements CommandLineRunner{
         user.setPassword("password4");
         user.setFullName("Jane Pane");
         user.setUserEmail("g4@gmail.com");
+        appUserRepository.save(user);
         user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
         appUserRepository.save(user);
 
@@ -229,14 +228,14 @@ public class DataLoader  implements CommandLineRunner{
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(3)));
         appUserRepository.save(appUser);
 
-        ProductOrder productOrder = new ProductOrder();
+      /*  ProductOrder productOrder = new ProductOrder();
         productOrder.addShoppingCarts(shoppingCartRepository.findById(new Long(1)));
         productOrder.addShoppingCarts(shoppingCartRepository.findById(new Long(3)));
         productOrderRepository.save(productOrder);
         appUser.addProductOrder(productOrderRepository.findById(new Long (1)));
         //appUser.addProductOrder(productOrderRepository.findOne(new Long(2)));
         appUserRepository.save(appUser);
-
+*/
 
 
 

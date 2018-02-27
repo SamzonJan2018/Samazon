@@ -27,50 +27,23 @@ public class AppUser {
     private String fullName;
 
 
-    @ManyToMany(cascade = CascadeType.ALL)
-
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<ShoppingCart> userCartList;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<ProductOrder> productOrderList;
 
-    public List<ProductOrder> getProductOrderList() {
-        return productOrderList;
-    }
-
-    public void setProductOrderList(List<ProductOrder> productOrderList) {
-        this.productOrderList = productOrderList;
-    }
-
-    public List<ShoppingCart> getUserCartList() {
-        return userCartList;
-    }
-
-    public void setUserCartList(List<ShoppingCart> userCartList) {
-        this.userCartList = userCartList;
-    }
-
-    public void addShoppingCart(ShoppingCart s){
-        this.userCartList.add(s);
-    }
-    public void addProductOrder(ProductOrder po){
-        this.productOrderList.add(po);
-    }
-
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<AppRole> roles;
+
+    public void addShoppingCart(ShoppingCart s){this.userCartList.add(s);}
+    public void addRole(AppRole role){
+        this.roles.add(role);
+    }
 
     public AppUser() {
         this.roles = new HashSet<>();
         this.userCartList=new ArrayList<>();
+        }
 
-        this.productOrderList = new ArrayList<>();
-
-    }
-
-    public void addRole(AppRole role){
-        this.roles.add(role);
-    }
 
     public long getId() {
         return id;
@@ -119,4 +92,14 @@ public class AppUser {
     public void setRoles(Set<AppRole> roles) {
         this.roles = roles;
     }
+
+
+    public List<ShoppingCart> getUserCartList() {
+        return userCartList;
+    }
+
+    public void setUserCartList(List<ShoppingCart> userCartList) {
+        this.userCartList = userCartList;
+    }
+
 }

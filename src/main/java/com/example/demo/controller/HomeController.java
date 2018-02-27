@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.model.AppUser;
 import com.example.demo.model.Product;
-import com.example.demo.model.ProductOrder;
 import com.example.demo.model.ShoppingCart;
 import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +94,7 @@ public class HomeController {
     @RequestMapping("/addshoppingcart/{id}")
     public String addToShoppingCart(@PathVariable("id") long id,Model model,RedirectAttributes redirectAttributes ){
         Product product=productRepository.findOne(id);
-        counter++;
+
         model.addAttribute("product", productRepository.findOne(id));
         productRepository.save(product);
         model.addAttribute("runningTotal", runningTotal);
@@ -104,15 +103,14 @@ public class HomeController {
 
     @RequestMapping("/orderconfirmation")
     public String orderConfirmation(Model model,Authentication authentication ){
-        //model.addAttribute("totalOrder", productOrderRepository.countByOrderNum());
-        //model.addAttribute("totalOrder",counter);
+        AppUser appUser = appUserRepository.findAppUserByUsername(authentication.getName());
+        ShoppingCart shoppingCart = shoppingCartRepository.findByAppUserContaining(appUser);
+        for (Product product2: shoppingCart.getProductList()){
+            shoppingCart.setWithinShoppingCart(false);
+            //set date and time here
+        }
+        shoppingCartRepository.save(shoppingCart);
 
-       AppUser appUser= appUserRepository.findAppUserByUsername(authentication.getName());
-      //  Long countByProductListIn(List<Product> productList);
-        ShoppingCart shoppingCart =shoppingCartRepository.findByAppUserContaining(appUser);
-       List<Product> productList= shoppingCart.getProductList();
-
-        model.addAttribute("totalOrder",shoppingCartRepository.countByProductListIn(productList));
         return "orderconfirmation";
     }
 
@@ -197,6 +195,7 @@ public class HomeController {
         for (Product product2: shoppingCart.getProductList()){
             shoppingCart.setShoppingCartTotal(shoppingCart.getShoppingCartTotal()+product2.getProductPrice());
             runningTotal=shoppingCart.getShoppingCartTotal();
+            shoppingCart.setWithinShoppingCart(true);
         }
         model.addAttribute("runningTotal", runningTotal);
         shoppingCartRepository.save(shoppingCart);
