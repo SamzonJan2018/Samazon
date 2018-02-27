@@ -26,10 +26,10 @@ public class AppUser {
 
     private String fullName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<ShoppingCart> userCartList;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<ProductOrder> productOrderList;
 
     public List<ProductOrder> getProductOrderList() {
@@ -55,7 +55,7 @@ public class AppUser {
         this.productOrderList.add(po);
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<AppRole> roles;
 
     public AppUser() {

@@ -16,7 +16,7 @@ public class ShoppingCart {
     @ManyToMany(mappedBy = "userCartList")
     private List <AppUser> appUser;
 
-    @ManyToMany
+    @ManyToMany()
     private List<Product> productList;
 
 

@@ -44,6 +44,7 @@ public class DataLoader  implements CommandLineRunner{
         user.setPassword("password1");
         user.setFullName("John Doe");
         user.setUserEmail("g1@gmail.com");
+        appUserRepository.save(user);
         user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
         appUserRepository.save(user);
         // User 2
@@ -52,6 +53,7 @@ public class DataLoader  implements CommandLineRunner{
         user.setPassword("password2");
         user.setFullName("Jacob Smith");
         user.setUserEmail("g2@gmail.com");
+        appUserRepository.save(user);
         user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
         appUserRepository.save(user);
         // User 3
@@ -60,6 +62,7 @@ public class DataLoader  implements CommandLineRunner{
         user.setPassword("password3");
         user.setFullName("Joe Blow");
         user.setUserEmail("g3@gmail.com");
+        appUserRepository.save(user);
         user.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
         appUserRepository.save(user);
 
@@ -204,14 +207,13 @@ public class DataLoader  implements CommandLineRunner{
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(1)));
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(3)));
         appUserRepository.save(appUser);
-        /*ProductOrder productOrder = new ProductOrder();
+        ProductOrder productOrder = new ProductOrder();
         productOrder.addShoppingCarts(shoppingCartRepository.findById(new Long(1)));
         productOrder.addShoppingCarts(shoppingCartRepository.findById(new Long(3)));
         productOrderRepository.save(productOrder);
         appUser.addProductOrder(productOrderRepository.findById(new Long (1)));
         //appUser.addProductOrder(productOrderRepository.findOne(new Long(2)));
         appUserRepository.save(appUser);
-*/
 
 
 
