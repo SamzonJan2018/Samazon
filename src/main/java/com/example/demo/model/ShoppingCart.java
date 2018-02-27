@@ -19,22 +19,18 @@ public class ShoppingCart {
     @ManyToMany
     private List<Product> productList;
 
-    @ManyToMany(mappedBy = "cartList")
-    private List<ProductOrder> orderList;
-
     public ShoppingCart(){
         this.appUser = new ArrayList<>();
         this.productList = new ArrayList<>();
-        this.orderList = new ArrayList<>();
     }
 
-    /*public ShoppingCart(List<AppUser> appUser, List<Product> productList, List<ProductOrder> orderList) {
-        this.appUser = appUser;
-        this.productList = productList;
-        this.orderList = orderList;
-    }*/
-
     private double shoppingCartTotal;
+    private boolean withinShoppingCart;
+    //private String orderDate;
+
+   /* @GeneratedValue(strategy = GenerationType.AUTO)
+    private int orderNum;*/
+
 
     public void addProduct(Product p){
         this.productList.add(p);
@@ -66,14 +62,6 @@ public class ShoppingCart {
         this.productList = productList;
     }
 
-    public List<ProductOrder> getOrderList() {
-        return orderList;
-    }
-
-    public void setOrderList(List<ProductOrder> orderList) {
-        this.orderList = orderList;
-    }
-
     public double getShoppingCartTotal() {
         return shoppingCartTotal;
     }
@@ -82,4 +70,29 @@ public class ShoppingCart {
         this.shoppingCartTotal = shoppingCartTotal;
     }
 
+    public boolean isWithinShoppingCart() {
+        return withinShoppingCart;
+    }
+
+    public void setWithinShoppingCart(boolean withinShoppingCart) {
+        this.withinShoppingCart = withinShoppingCart;
+    }
+/*
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+*/
+
+/*    public int getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
+    }*/
 }

@@ -2,7 +2,6 @@ package com.example.demo.repository;
 
 import com.example.demo.model.AppRole;
 import com.example.demo.model.AppUser;
-import com.example.demo.model.ProductOrder;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.HashSet;
