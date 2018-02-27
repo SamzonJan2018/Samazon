@@ -21,21 +21,12 @@ public class Product {
     private Double productPrice;
 
     private String productDescription;
-   // private int productQuantity;
 
-  @ManyToMany(/*cascade = CascadeType.ALL*/)
-    private List<ProductOrder> productOrders;
-
-
-
-
+    // Connections
     @ManyToMany(mappedBy = "productList")
     private List<ShoppingCart> shoppingCartList;
 
-
-    public Product(){
-        this.shoppingCartList = new ArrayList<>();
-        this.productOrders = new ArrayList<>();
+    public Product() {
     }
 
     public List<ShoppingCart> getShoppingCartList() {
@@ -46,6 +37,7 @@ public class Product {
         this.shoppingCartList = shoppingCartList;
     }
 
+    // Variable Getters and Setters
     public Long getId() {
         return id;
     }
@@ -85,6 +77,4 @@ public class Product {
     public void setProductDescription(String productDescription) {
         this.productDescription = productDescription;
     }
-
-
 }

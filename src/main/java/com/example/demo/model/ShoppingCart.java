@@ -13,35 +13,6 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToMany(mappedBy = "userCartList")
-    private List <AppUser> appUser;
-
-    @ManyToMany
-    private List<Product> productList;
-
-    @ManyToMany(mappedBy = "cartList")
-    private List<ProductOrder> orderList;
-
-    public ShoppingCart(){
-        this.appUser = new ArrayList<>();
-        this.productList = new ArrayList<>();
-        this.orderList = new ArrayList<>();
-    }
-
-    /*public ShoppingCart(List<AppUser> appUser, List<Product> productList, List<ProductOrder> orderList) {
-        this.appUser = appUser;
-        this.productList = productList;
-        this.orderList = orderList;
-    }*/
-
-    private double shoppingCartTotal;
-
-    public void addProduct(Product p){
-        this.productList.add(p);
-    }
-
-
-
     public long getId() {
         return id;
     }
@@ -50,12 +21,15 @@ public class ShoppingCart {
         this.id = id;
     }
 
-    public List<AppUser> getAppUser() {
-        return appUser;
+    public ShoppingCart() {
     }
 
-    public void setAppUser(List<AppUser> appUser) {
-        this.appUser = appUser;
+    // Coonection to Product
+    @ManyToMany
+    private List<Product> productList;
+
+    public ShoppingCart(List<Product> productList) {
+        this.productList = productList;
     }
 
     public List<Product> getProductList() {
@@ -66,20 +40,31 @@ public class ShoppingCart {
         this.productList = productList;
     }
 
-    public List<ProductOrder> getOrderList() {
-        return orderList;
+    public void addProduct(Product p){
+        this.productList.add(p);
     }
 
-    public void setOrderList(List<ProductOrder> orderList) {
-        this.orderList = orderList;
+    // Connection to Product Order
+    @ManyToMany(mappedBy = "shoppingCartOrderList")
+    private List<ProductOrder> productOrderCartList;
+
+    public List<ProductOrder> getProductOrderCartList() {
+        return productOrderCartList;
     }
 
-    public double getShoppingCartTotal() {
-        return shoppingCartTotal;
+    public void setProductOrderCartList(List<ProductOrder> productOrderCartList) {
+        this.productOrderCartList = productOrderCartList;
     }
 
-    public void setShoppingCartTotal(double shoppingCartTotal) {
-        this.shoppingCartTotal = shoppingCartTotal;
+    // Connection to Shopper
+    @ManyToMany(mappedBy = "siteShoppingCartList")
+    private List<SiteShopper> siteShopperCartList;
+
+    public List<SiteShopper> getSiteShopperCartList() {
+        return siteShopperCartList;
     }
 
+    public void setSiteShopperCartList(List<SiteShopper> siteShopperCartList) {
+        this.siteShopperCartList = siteShopperCartList;
+    }
 }

@@ -23,45 +23,42 @@ public class ProductOrder {
 
     private String fullName;
 
-    @ManyToMany(/*cascade = CascadeType.ALL*/)
-    public List<ShoppingCart> cartList;
-
-
-    @ManyToMany(mappedBy = "productOrderList")
-    public List<AppUser> appUsers;
-
     public ProductOrder() {
-        cartList = new ArrayList<>();
     }
 
-    public List<AppUser> getAppUsers() {
-        return appUsers;
+    // Connection to Shopping Cart
+    @ManyToMany
+    private List<ShoppingCart> shoppingCartOrderList;
+
+    public void addCart(ShoppingCart shoppingCart){
+        this.shoppingCartOrderList.add(shoppingCart);
     }
 
-    public void setAppUsers(List<AppUser> appUsers) {
-        this.appUsers = appUsers;
+    public ProductOrder(List<ShoppingCart> shoppingCartOrderList) {
+        this.shoppingCartOrderList = shoppingCartOrderList;
     }
 
-    public ProductOrder(List<ShoppingCart> cartList) {
-
-        this.cartList = cartList;
+    public List<ShoppingCart> getShoppingCartOrderList() {
+        return shoppingCartOrderList;
     }
 
-    public void addShoppingCarts(ShoppingCart s){
-        this.cartList.add(s);
+    public void setShoppingCartOrderList(List<ShoppingCart> shoppingCartOrderList) {
+        this.shoppingCartOrderList = shoppingCartOrderList;
     }
 
-    public List<ShoppingCart> getCartList() {
-        return cartList;
+    // Connection to Site Shopper
+    @ManyToMany(mappedBy = "siteProductOrderList")
+    private List<SiteShopper> siteShopperOrderList;
+
+    public List<SiteShopper> getSiteShopperOrderList() {
+        return siteShopperOrderList;
     }
 
-    public void setCartList(List<ShoppingCart> cartList) {
-        this.cartList = cartList;
+    public void setSiteShopperOrderList(List<SiteShopper> siteShopperOrderList) {
+        this.siteShopperOrderList = siteShopperOrderList;
     }
 
-    public void addCart(ShoppingCart shoppingCart){this.cartList.add(shoppingCart);}
-
-
+    // Getters and setters
     public long getId() {
         return id;
     }
@@ -109,6 +106,4 @@ public class ProductOrder {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
-
-
 }
