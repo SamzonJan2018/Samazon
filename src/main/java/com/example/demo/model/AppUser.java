@@ -26,7 +26,9 @@ public class AppUser {
 
     private String fullName;
 
+
     @ManyToMany(cascade = CascadeType.ALL)
+
     private List<ShoppingCart> userCartList;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -61,7 +63,9 @@ public class AppUser {
     public AppUser() {
         this.roles = new HashSet<>();
         this.userCartList=new ArrayList<>();
+
         this.productOrderList = new ArrayList<>();
+
     }
 
     public void addRole(AppRole role){
