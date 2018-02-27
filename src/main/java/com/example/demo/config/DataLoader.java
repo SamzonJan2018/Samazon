@@ -201,12 +201,12 @@ public class DataLoader  implements CommandLineRunner{
         // Adding shopping carts to Users
         AppUser appUser=appUserRepository.findOne(new Long(1));
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(2)));
-        appUser.addProductOrder(productOrderRepository.findOne(new Long(1)));
+        //appUser.addProductOrder(productOrderRepository.findOne(new Long(1)));
         appUserRepository.save(appUser);
         appUser=appUserRepository.findOne(new Long(3));
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(1)));
         appUser.addShoppingCart(shoppingCartRepository.findById(new Long(3)));
-        appUser.addProductOrder(productOrderRepository.findOne(new Long(2)));
+        //appUser.addProductOrder(productOrderRepository.findOne(new Long(2)));
         appUserRepository.save(appUser);
 
 

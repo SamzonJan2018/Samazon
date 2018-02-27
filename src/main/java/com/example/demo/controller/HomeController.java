@@ -119,6 +119,7 @@ public class HomeController {
         //shoppingCartRepository.delete(id);
         return "redirect:/";
     }
+
     //Order history
     @RequestMapping(value="/orderhistory",method= RequestMethod.GET)
     public String showOrderHistory(Authentication authentication,Model model){
@@ -177,8 +178,6 @@ public class HomeController {
         shoppingCart.addProduct(product);
         shoppingCartRepository.save(shoppingCart);
 
-
-//need to modify this later
        return "redirect:/";
 
 
